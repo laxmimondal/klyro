@@ -1,5 +1,5 @@
-import { EmailAddress } from "@clerk/nextjs/dist/types/server";
 import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema({
     _id: {
         type: String,
@@ -13,12 +13,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        validate: {
-            validator: function (v) {
-                return EmailAddress.isValid(v);
-            },
-            message: props => `${props.value} is not a valid email!`
-        }
     },
     imageUrl: {
         type: String,
@@ -28,8 +22,7 @@ const userSchema = new mongoose.Schema({
         type: Object,
         default: {}
     }
-}, { minimize: false })
+}, { minimize: false });
 
-const User = mongoose.models.user || mongoose.model('user', userSchema)
-
-export default User
+const User = mongoose.models.user || mongoose.model('user', userSchema);
+export default User;
